@@ -60,6 +60,16 @@ void *memchr_opt(const void *src_void, int c, size_t length) {
     // which is 8 bytes, should be aligned with long int size
     while (length >= LBLOCKSIZE) {
       /* XXXXX: Your implementation should appear here */
+      if (DETECT_CHAR(*asrc, mask) != 0) { // char in mask detected
+        for (int i = 0; i < 8; i++) {      // linear scan in this 8 characters
+          if (*(src + i) == d)
+            return (void *)(src + i);
+        }
+      } else { // char in mask not detected
+        src = src + 8;
+        asrc = (unsigned long *)src;
+        length = length - 8;
+      }
     }
 
     /* If there are fewer than LBLOCKSIZE characters left, then we resort to

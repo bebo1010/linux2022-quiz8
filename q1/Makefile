@@ -1,3 +1,3 @@
 SOURCE=q1.c
 all:
-	gcc -o test ${SOURCE} -O3
+	gcc -o test.out ${SOURCE} -O3
